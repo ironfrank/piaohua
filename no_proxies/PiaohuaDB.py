@@ -57,16 +57,15 @@ class PiaohuaDB(object):
         sqlstr += ', '.join(['"%s"' for i in fields])
         sqlstr += ')'
 
-        par_list = list(par)
-        par_list[1] = par_list[1].replace('"', '&quot;')
-        par_list[2] = par_list[2].replace('"', '&quot;')
-        par_list[3] = par_list[3].replace('"', '&quot;')
+        par[1] = par[1].replace('"', '&quot;')
+        par[2] = par[2].replace('"', '&quot;')
+        par[3] = par[3].replace('"', '&quot;')
         param['link'] = param['link'].replace('"', '&quot;')
         param['about'] = param['about'].replace('"', '&quot;')
-        
+
         execute_sql = sqlstr % (
-            param['id'], par_list[1], par_list[2], par_list[3], param['link'], param['about'])
-        
+            param['id'], par[1].encode('utf-8'), par[2].encode('utf-8'), par[3].encode('utf-8'), param['link'].encode('utf-8'), param['about'.encode('utf-8')])
+
         print execute_sql
         self.dbcur.execute(execute_sql)
         self.dbconn.commit()
@@ -78,7 +77,7 @@ class PiaohuaDB(object):
         self.dbconn.commit()
 
     @methodName
-    def single_insert_tmp_table(self, table_name, param):
+    def single_insert_tmp_table(self, table_name, param=[]):
         fields = ['id', 'type', 'name', 'url']
 
         sqlstr = 'INSERT INTO %s(' % (table_name)
@@ -87,11 +86,11 @@ class PiaohuaDB(object):
         sqlstr += ', '.join(['"%s"' for i in fields])
         sqlstr += ')'
 
-        lparam = list(param)
-        lparam[1] = lparam[1].replace('"', '&quot;')
-        lparam[2] = lparam[2].replace('"', '&quot;')
-        lparam[3] = lparam[3].replace('"', '&quot;')
-        execute_sql = sqlstr % (lparam[0], lparam[1], lparam[2], lparam[3])
+        param[1] = param[1].replace('"', '&quot;')
+        param[2] = param[2].replace('"', '&quot;')
+        param[3] = param[3].replace('"', '&quot;')
+        execute_sql = sqlstr % (param[0].encode('utf-8'), param[1].encode('utf-8'), param[2].encode('utf-8'), param[3].encode('utf-8'))
+        print execute_sql
         self.dbcur.execute(execute_sql)
         self.dbconn.commit()
 
@@ -106,7 +105,7 @@ class PiaohuaDB(object):
         sqlstr += ')'
         lparam = list(param)
         sql_queue = [sqlstr % (item[0], item[1].replace('"', '&quot;'),
-                            item[2].replace('"', '&quot;'), item[3].replace('"', '&quot;')) for item in lparam]
+                               item[2].replace('"', '&quot;'), item[3].replace('"', '&quot;')) for item in lparam]
         while sql_queue:
             self.dbcur.execute(sql_queue.pop())
 

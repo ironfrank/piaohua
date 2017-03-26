@@ -20,13 +20,13 @@ def UpdateDB():
         if status_code == '200':
             film_dict = exbox.sort_film_links(html)
             if isinstance(film_dict, dict):
-                db.insert_resource_center_table(row, film_dict)
+                db.insert_resource_center_table([row], film_dict)
             else:
-                db.single_insert_tmp_table('tmp_unresolved_issues', row)
+                db.single_insert_tmp_table('tmp_unresolved_issues', [row])
                 
             db.del_row_from_id_table('tmp', row[0])
         elif status_code == '404':
-            db.single_insert_tmp_table('tmp_404', row)
+            db.single_insert_tmp_table('tmp_404', [row])
             db.del_row_from_id_table('tmp', row[0])
 
     # type_list = ['kehuan','juqing','xuannian','wenyi','zhanzheng','kongbu','zainan','lianxuju','dongman','zongyijiemu']
