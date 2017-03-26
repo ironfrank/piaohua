@@ -28,23 +28,27 @@ sqlconn.select_db('film')
 cur.execute("SELECT * FROM piaohua;")
 rows = cur.fetchall()        # all rows in table
 sql_statement = ''
+print len(rows)
+
+id = ''
 try:
-    for item in rows:
+    for index, item in enumerate(rows):
         item_list = list(item)
-        del(item_list[-1])
+        item_list[2] = item_list[2].replace('"', '&quot;')
+        #cur.execute("UPDATE piaohua SET name = '%s' WHERE ID = '%s';" % (item_list[2], item_list[0]))
+
+        id = item_list
         value = "\",\"".join(list(item_list))
-        #print value
         sql_statement = '''INSERT INTO piaohua (id,type,name,url) VALUES ("%s");''' % value
-        print sql_statement
 
+        print """\033[1;31;40m %s \033[0m""" % (index)
         sqlcur.execute(sql_statement)
+        sqlconn.commit()
 except Exception,ex:
+    print ex
     print sql_statement
+    print id
 
-
-
-sqlconn.commit()
-conn.commit()
 cur.close()
 conn.close()
 sqlcur.close()

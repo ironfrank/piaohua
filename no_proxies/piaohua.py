@@ -5,45 +5,29 @@ import collections
 
 
 def UpdateDB():
-    db = PiaohuaDB()
+    db = PiaohuaDB('test', '127.0.0.1')
     exbox = ExtractWebFrame()
     res = RequestsBox()
-    #file_dict = collections.defaultdict(str)
-    # film_dict = dict()
-    # as_dict = dict()
-    # #去除重复
-    # rows = db.QueryPiaohuaTable()
-    # n = 0
-    # for item in rows:
-    #     tmpurl = item[3].split('/')
-    #     for i in xrange(3):
-    #         del tmpurl[5]
+    rows = db.query_tmp_table()
+    if not rows:
+        db.piaohua_type2tmp_table('aiqing')
 
-    #     print tmpurl
-    #     print '/'.join(tmpurl)
-    #     db.UpdatePiaohuaTable(item[0],'/'.join(tmpurl))
-    # print n
-
-    #rows = db.query_type_table('dongzuo')
-    #db.seiri_tmp_table_sql('tmp', rows)
-    # db.execute_sql()
     rows = db.query_tmp_table()
     for row in rows:
         print row[0], row[1], row[2], row[3]
-        status_code, html = res.proxy_get(row)
+        status_code, html = res.proxy_get_func(row)
 
         if status_code == '200':
             film_dict = exbox.sort_film_links(html)
             if isinstance(film_dict, dict):
                 db.insert_resource_center_table(row, film_dict)
             else:
-                db.seiri_tmp_table_sql('unresolved_issues', [row])
-                db.execute_sql()
-            db.del_tmp_table(row[0])
+                db.single_insert_tmp_table('tmp_unresolved_issues', row)
+                
+            db.del_row_from_id_table('tmp', row[0])
         elif status_code == '404':
-            db.seiri_tmp_table_sql('piaohua_404', [row])
-            db.execute_sql()
-            db.del_tmp_table(row[0])
+            db.single_insert_tmp_table('tmp_404', row)
+            db.del_row_from_id_table('tmp', row[0])
 
     # type_list = ['kehuan','juqing','xuannian','wenyi','zhanzheng','kongbu','zainan','lianxuju','dongman','zongyijiemu']
     # for stype in type_list:

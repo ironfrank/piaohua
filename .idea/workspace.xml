@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7c02070-45f0-4e15-8a68-d82560ae90b1" name="Default" comment="" />
+    <list default="true" id="f7c02070-45f0-4e15-8a68-d82560ae90b1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/tmp.py" afterPath="$PROJECT_DIR$/postgres2mysql.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FuncBox.py" afterPath="$PROJECT_DIR$/FuncBox.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/piaohua.py" afterPath="$PROJECT_DIR$/piaohua.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/temp.html" afterPath="$PROJECT_DIR$/temp.html" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/piaohua$tmp.coverage" NAME="tmp Coverage Results" MODIFIED="1490455512032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/piaohua$tmp.coverage" NAME="tmp Coverage Results" MODIFIED="1490499706323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/piaohua$piaohua.coverage" NAME="piaohua Coverage Results" MODIFIED="1490367740957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -22,8 +29,8 @@
       <file leaf-file-name="piaohua.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/piaohua.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+            <state relative-caret-position="637">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding>
                 <element signature="e#23#47#0" expanded="true" />
               </folding>
@@ -31,16 +38,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tmp.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tmp.py">
+      <file leaf-file-name="postgres2mysql.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/postgres2mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="428">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="e#14#29#0" expanded="true" />
-                <marker date="1490455342000" expanded="true" signature="725:746" ph="SELECT * FRO... piaohua" />
-                <marker date="1490455342000" expanded="true" signature="997:1026" ph="INSERT INTO piaohua... " />
-                <marker date="1490455342000" expanded="true" signature="997:1049" ph="INSERT INTO piaohua... " />
+                <marker date="1490499701000" expanded="true" signature="725:746" ph="SELECT * FRO... piaohua" />
+                <marker date="1490499701000" expanded="true" signature="1000:1046" ph="UPDATE piaoh... " />
+                <marker date="1490499701000" expanded="true" signature="1178:1207" ph="INSERT INTO piaohua... " />
+                <marker date="1490499701000" expanded="true" signature="1178:1230" ph="INSERT INTO piaohua... " />
               </folding>
             </state>
           </provider>
@@ -61,8 +69,8 @@
       <file leaf-file-name="RequestsBox.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RequestsBox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2414">
-              <caret line="166" column="41" lean-forward="false" selection-start-line="166" selection-start-column="41" selection-end-line="166" selection-end-column="41" />
+            <state relative-caret-position="591">
+              <caret line="227" column="4" lean-forward="false" selection-start-line="227" selection-start-column="4" selection-end-line="253" selection-end-column="31" />
               <folding>
                 <element signature="e#6642#6655#0" expanded="false" />
               </folding>
@@ -73,8 +81,8 @@
       <file leaf-file-name="ExtractBox.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ExtractBox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-949">
-              <caret line="22" column="40" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="22" selection-end-column="40" />
+            <state relative-caret-position="466">
+              <caret line="102" column="64" lean-forward="false" selection-start-line="102" selection-start-column="64" selection-end-line="102" selection-end-column="64" />
               <folding>
                 <element signature="e#23#62#0" expanded="true" />
                 <marker date="1490435298000" expanded="true" signature="3816:3901" ph="..." />
@@ -96,8 +104,8 @@
       <file leaf-file-name="PiaohuaDB.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PiaohuaDB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-236">
-              <caret line="38" column="59" lean-forward="true" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="59" />
+            <state relative-caret-position="156">
+              <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="73" />
               <folding>
                 <element signature="e#22#37#0" expanded="true" />
                 <marker date="1490435305000" expanded="true" signature="895:940" ph="UPDATE piaoh... " />
@@ -125,6 +133,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -148,6 +159,9 @@
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="830" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -235,7 +249,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="piaohua" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tmp.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/postgres2mysql.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -469,11 +483,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="830" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24525745" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24525745" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19027181" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -784,31 +799,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/piaohua.py">
+    <entry file="file://$PROJECT_DIR$/FuncBox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+        <state relative-caret-position="255">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="30" />
           <folding>
-            <element signature="e#23#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ExtractBox.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-949">
-          <caret line="22" column="40" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="22" selection-end-column="40" />
-          <folding>
-            <element signature="e#23#62#0" expanded="true" />
-            <marker date="1490435298000" expanded="true" signature="3816:3901" ph="..." />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PiaohuaDB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-236">
-          <caret line="38" column="59" lean-forward="true" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="59" />
+        <state relative-caret-position="156">
+          <caret line="38" column="12" lean-forward="false" selection-start-line="38" selection-start-column="12" selection-end-line="38" selection-end-column="73" />
           <folding>
             <element signature="e#22#37#0" expanded="true" />
             <marker date="1490435305000" expanded="true" signature="895:940" ph="UPDATE piaoh... " />
@@ -826,35 +830,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/piaohua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RequestsBox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2414">
-          <caret line="166" column="41" lean-forward="false" selection-start-line="166" selection-start-column="41" selection-end-line="166" selection-end-column="41" />
+        <state relative-caret-position="591">
+          <caret line="227" column="4" lean-forward="false" selection-start-line="227" selection-start-column="4" selection-end-line="253" selection-end-column="31" />
           <folding>
             <element signature="e#6642#6655#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FuncBox.py">
+    <entry file="file://$PROJECT_DIR$/ExtractBox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="30" />
+        <state relative-caret-position="466">
+          <caret line="102" column="64" lean-forward="false" selection-start-line="102" selection-start-column="64" selection-end-line="102" selection-end-column="64" />
           <folding>
-            <element signature="e#23#33#0" expanded="true" />
+            <element signature="e#23#62#0" expanded="true" />
+            <marker date="1490435298000" expanded="true" signature="3816:3901" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tmp.py">
+    <entry file="file://$PROJECT_DIR$/postgres2mysql.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="428">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#14#29#0" expanded="true" />
-            <marker date="1490455342000" expanded="true" signature="725:746" ph="SELECT * FRO... piaohua" />
-            <marker date="1490455342000" expanded="true" signature="997:1026" ph="INSERT INTO piaohua... " />
-            <marker date="1490455342000" expanded="true" signature="997:1049" ph="INSERT INTO piaohua... " />
+            <marker date="1490499701000" expanded="true" signature="725:746" ph="SELECT * FRO... piaohua" />
+            <marker date="1490499701000" expanded="true" signature="1000:1046" ph="UPDATE piaoh... " />
+            <marker date="1490499701000" expanded="true" signature="1178:1207" ph="INSERT INTO piaohua... " />
+            <marker date="1490499701000" expanded="true" signature="1178:1230" ph="INSERT INTO piaohua... " />
           </folding>
         </state>
       </provider>
