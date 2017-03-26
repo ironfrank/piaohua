@@ -12,7 +12,7 @@ class PiaohuaDB(object):
     def __init__(self, db_name, host_ip):
         # type: () -> object
         self.dbconn = MySQLdb.connect(
-            host=host_ip, user='root', passwd='root', port=3306)
+            host=host_ip, user='root', passwd='root', port=3306, charset = 'utf8')
         self.dbcur = self.dbconn.cursor()
         self.dbconn.select_db(db_name)
 
@@ -61,7 +61,7 @@ class PiaohuaDB(object):
         execute_sql = sqlstr % (
             param['id'], par[1], par[2], par[3], param['link'], param['about'])
 
-        print execute_sql
+        print execute_sql.encode('utf-8')
         self.dbcur.execute(execute_sql.encode('utf-8'))
         self.dbconn.commit()
 
@@ -85,7 +85,7 @@ class PiaohuaDB(object):
         param[2] = param[2].replace('"', '&quot;')
         param[3] = param[3].replace('"', '&quot;')
         execute_sql = sqlstr % (param[0], param[1], param[2], param[3])
-        print execute_sql
+        print execute_sql.encode('utf-8')
         self.dbcur.execute(execute_sql.encode('utf-8'))
         self.dbconn.commit()
 

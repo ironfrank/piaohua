@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf-8')
 
 
 def UpdateDB():
-    db = PiaohuaDB('test', '127.0.0.1')
+    db = PiaohuaDB('film', '127.0.0.1')
     exbox = ExtractWebFrame()
     res = RequestsBox()
     rows = db.query_tmp_table()
@@ -18,7 +18,7 @@ def UpdateDB():
     rows = db.query_tmp_table()
     for row in rows:
         lrow = [item for item in row]
-        print lrow[0], lrow[1], lrow[2], lrow[3]
+        print lrow
         status_code, html = res.proxy_get_func(lrow)
 
         if status_code == '200':
