@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 #-*- coding:utf-8 -*-
 import psycopg2
 import sys
