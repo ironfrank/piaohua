@@ -13,7 +13,7 @@ import collections
 from ExceptionBox import *
 
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
 sys.setrecursionlimit(1000000)
 
 #def output()

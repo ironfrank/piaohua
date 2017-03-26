@@ -4,7 +4,7 @@ import sys
 from FuncBox import *
 
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
 
 
 class PiaohuaDB(object):
@@ -49,26 +49,29 @@ class PiaohuaDB(object):
     @methodName
     def insert_resource_center_table(self, par, param):
         fields = ['id', 'type', 'name', 'url', 'link', 'about']
+        try:
+            sqlstr = 'INSERT INTO resource_center('
+            sqlstr += ', '.join([item for item in fields])
+            sqlstr += ')VALUES('
+            sqlstr += ', '.join(['"%s"' for i in fields])
+            sqlstr += ')'
 
-        sqlstr = 'INSERT INTO resource_center('
-        sqlstr += ', '.join([item for item in fields])
-        sqlstr += ')VALUES('
-        sqlstr += ', '.join(['"%s"' for i in fields])
-        sqlstr += ')'
-
-        par_list = list(par)
-        par_list[1] = par_list[1].replace('"', '&quot;')
-        par_list[2] = par_list[2].replace('"', '&quot;')
-        par_list[3] = par_list[3].replace('"', '&quot;')
-        param['link'] = param['link'].replace('"', '&quot;')
-        param['about'] = param['about'].replace('"', '&quot;')
-        
-        execute_sql = sqlstr % (
-            param['id'], par_list[1], par_list[2], par_list[3], param['link'], param['about'])
-        
-        print execute_sql
-        self.dbcur.execute(execute_sql)
-        self.dbconn.commit()
+            par_list = list(par)
+            par_list[1] = par_list[1].replace('"', '&quot;')
+            par_list[2] = par_list[2].replace('"', '&quot;')
+            par_list[3] = par_list[3].replace('"', '&quot;')
+            param['link'] = param['link'].replace('"', '&quot;')
+            param['about'] = param['about'].replace('"', '&quot;')
+            
+            execute_sql = sqlstr % (
+                param['id'], par_list[1], par_list[2], par_list[3], param['link'], param['about'])
+            
+            print execute_sql
+            self.dbcur.execute(execute_sql)
+            self.dbconn.commit()
+        except Exception,ex:
+            print ex
+            print execute_sql
 
     # tmp or unresolved_issues table operation
     @methodName
@@ -79,37 +82,43 @@ class PiaohuaDB(object):
     @methodName
     def single_insert_tmp_table(self, table_name, param):
         fields = ['id', 'type', 'name', 'url']
+        try:
+            sqlstr = 'INSERT INTO %s(' % (table_name)
+            sqlstr += ', '.join([item for item in fields])
+            sqlstr += ')VALUES('
+            sqlstr += ', '.join(['"%s"' for i in fields])
+            sqlstr += ')'
 
-        sqlstr = 'INSERT INTO %s(' % (table_name)
-        sqlstr += ', '.join([item for item in fields])
-        sqlstr += ')VALUES('
-        sqlstr += ', '.join(['"%s"' for i in fields])
-        sqlstr += ')'
-
-        lparam = list(param)
-        lparam[1] = lparam[1].replace('"', '&quot;')
-        lparam[2] = lparam[2].replace('"', '&quot;')
-        lparam[3] = lparam[3].replace('"', '&quot;')
-        execute_sql = sqlstr % (lparam[0], lparam[1], lparam[2], lparam[3])
-        self.dbcur.execute(execute_sql)
-        self.dbconn.commit()
+            lparam = list(param)
+            lparam[1] = lparam[1].replace('"', '&quot;')
+            lparam[2] = lparam[2].replace('"', '&quot;')
+            lparam[3] = lparam[3].replace('"', '&quot;')
+            execute_sql = sqlstr % (lparam[0], lparam[1], lparam[2], lparam[3])
+            self.dbcur.execute(execute_sql)
+            self.dbconn.commit()
+        except Exception,ex:
+            print ex
+            print execute_sql
 
     @methodName
     def muilt_insert_tmp_table(self, table_name, param=[]):
         fields = ['id', 'type', 'name', 'url']
+        try:
+            sqlstr = 'INSERT INTO %s(' % (table_name)
+            sqlstr += ', '.join([item for item in fields])
+            sqlstr += ')VALUES('
+            sqlstr += ', '.join(['"%s"' for i in fields])
+            sqlstr += ')'
+            lparam = list(param)
+            sql_queue = [sqlstr % (item[0], item[1].replace('"', '&quot;'),
+                                item[2].replace('"', '&quot;'), item[3].replace('"', '&quot;')) for item in lparam]
+            while sql_queue:
+                self.dbcur.execute(sql_queue.pop())
 
-        sqlstr = 'INSERT INTO %s(' % (table_name)
-        sqlstr += ', '.join([item for item in fields])
-        sqlstr += ')VALUES('
-        sqlstr += ', '.join(['"%s"' for i in fields])
-        sqlstr += ')'
-        lparam = list(param)
-        sql_queue = [sqlstr % (item[0], item[1].replace('"', '&quot;'),
-                               item[2].replace('"', '&quot;'), item[3].replace('"', '&quot;')) for item in lparam]
-        while sql_queue:
-            self.dbcur.execute(sql_queue.pop())
-
-        self.dbconn.commit()
+            self.dbconn.commit()
+        except Exception,ex:
+            print ex
+            print execute_sql
 
     def query_tmp_table(self):
         self.dbcur.execute("SELECT * FROM tmp;")

@@ -3,7 +3,8 @@ import psycopg2
 import sys
 
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
+sys.setrecursionlimit(1000000)
 
 
 class PiaohuaDB(object):
