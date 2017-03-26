@@ -57,11 +57,11 @@ class PiaohuaDB(object):
         sqlstr += ')'
 
         par_list = list(par)
-        par_list[1].replace('"', '&quot;')
-        par_list[2].replace('"', '&quot;')
-        par_list[3].replace('"', '&quot;')
-        param['link'].replace('"', '&quot;')
-        param['about'].replace('"', '&quot;')
+        par_list[1] = par_list[1].replace('"', '&quot;')
+        par_list[2] = par_list[2].replace('"', '&quot;')
+        par_list[3] = par_list[3].replace('"', '&quot;')
+        param['link'] = param['link'].replace('"', '&quot;')
+        param['about'] = param['about'].replace('"', '&quot;')
         
         execute_sql = sqlstr % (
             param['id'], par_list[1], par_list[2], par_list[3], param['link'], param['about'])
@@ -87,9 +87,9 @@ class PiaohuaDB(object):
         sqlstr += ')'
 
         lparam = list(param)
-        lparam[1].replace('"', '&quot;')
-        lparam[2].replace('"', '&quot;')
-        lparam[3].replace('"', '&quot;')
+        lparam[1] = lparam[1].replace('"', '&quot;')
+        lparam[2] = lparam[2].replace('"', '&quot;')
+        lparam[3] = lparam[3].replace('"', '&quot;')
         execute_sql = sqlstr % (lparam[0], lparam[1], lparam[2], lparam[3])
         self.dbcur.execute(execute_sql)
         self.dbconn.commit()

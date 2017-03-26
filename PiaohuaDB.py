@@ -14,7 +14,7 @@ class PiaohuaDB(object):
     def __init__(self):
         # type: () -> object
         self.dbconn = psycopg2.connect(
-            database="piaohua", user="frank", password="root", host="127.0.0.1", port="5432")
+            database="piaohua", user="frank", password="root", host="127.0.0.1", port="5432", charset = 'utf8')
         self.dbcur = self.dbconn.cursor()
 
     def __del__(self):
