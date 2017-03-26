@@ -14,20 +14,21 @@ def UpdateDB():
 
     rows = db.query_tmp_table()
     for row in rows:
-        print row[0], row[1], row[2], row[3]
-        status_code, html = res.proxy_get_func(row)
+        lrow = [item.encode('utf-8') for item in row]
+        print lrow[0], lrow[1], lrow[2], lrow[3]
+        status_code, html = res.proxy_get_func(lrow)
 
         if status_code == '200':
             film_dict = exbox.sort_film_links(html)
             if isinstance(film_dict, dict):
-                db.insert_resource_center_table([row], film_dict)
+                db.insert_resource_center_table(lrow, film_dict)
             else:
-                db.single_insert_tmp_table('tmp_unresolved_issues', [row])
+                db.single_insert_tmp_table('tmp_unresolved_issues', lrow)
                 
-            db.del_row_from_id_table('tmp', row[0])
+            db.del_row_from_id_table('tmp', lrow[0])
         elif status_code == '404':
-            db.single_insert_tmp_table('tmp_404', [row])
-            db.del_row_from_id_table('tmp', row[0])
+            db.single_insert_tmp_table('tmp_404', lrow)
+            db.del_row_from_id_table('tmp', lrow[0])
 
     # type_list = ['kehuan','juqing','xuannian','wenyi','zhanzheng','kongbu','zainan','lianxuju','dongman','zongyijiemu']
     # for stype in type_list:

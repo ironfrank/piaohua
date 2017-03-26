@@ -64,7 +64,7 @@ class PiaohuaDB(object):
         param['about'] = param['about'].replace('"', '&quot;')
 
         execute_sql = sqlstr % (
-            param['id'], par[1].encode('utf-8'), par[2].encode('utf-8'), par[3].encode('utf-8'), param['link'].encode('utf-8'), param['about'.encode('utf-8')])
+            param['id'], par[1], par[2], par[3], param['link'], param['about'])
 
         print execute_sql
         self.dbcur.execute(execute_sql)
@@ -89,7 +89,7 @@ class PiaohuaDB(object):
         param[1] = param[1].replace('"', '&quot;')
         param[2] = param[2].replace('"', '&quot;')
         param[3] = param[3].replace('"', '&quot;')
-        execute_sql = sqlstr % (param[0].encode('utf-8'), param[1].encode('utf-8'), param[2].encode('utf-8'), param[3].encode('utf-8'))
+        execute_sql = sqlstr % (param[0], param[1], param[2], param[3])
         print execute_sql
         self.dbcur.execute(execute_sql)
         self.dbconn.commit()
