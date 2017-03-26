@@ -2,6 +2,9 @@
 from ExtractBox import *
 from PiaohuaDB import *
 import collections
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def UpdateDB():
@@ -14,7 +17,7 @@ def UpdateDB():
 
     rows = db.query_tmp_table()
     for row in rows:
-        lrow = [item.encode('utf-8') for item in row]
+        lrow = [item for item in row]
         print lrow[0], lrow[1], lrow[2], lrow[3]
         status_code, html = res.proxy_get_func(lrow)
 

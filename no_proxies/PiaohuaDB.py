@@ -4,10 +4,6 @@ import MySQLdb
 import sys
 from FuncBox import *
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-
 class PiaohuaDB(object):
     dbconn = None
     dbcur = None
@@ -27,7 +23,6 @@ class PiaohuaDB(object):
     def piaohua_type2tmp_table(self, type_param):
         execute_sql = 'INSERT INTO tmp(id,name,type,url)SELECT id,name,type,url FROM piaohua WHERE type = "%s";' % (
             type_param)
-        print 'hello'
         print execute_sql
         self.dbcur.execute(execute_sql)
         self.dbconn.commit()
@@ -67,7 +62,7 @@ class PiaohuaDB(object):
             param['id'], par[1], par[2], par[3], param['link'], param['about'])
 
         print execute_sql
-        self.dbcur.execute(execute_sql)
+        self.dbcur.execute(execute_sql.encode('utf-8'))
         self.dbconn.commit()
 
     # tmp or unresolved_issues table operation
@@ -91,7 +86,7 @@ class PiaohuaDB(object):
         param[3] = param[3].replace('"', '&quot;')
         execute_sql = sqlstr % (param[0], param[1], param[2], param[3])
         print execute_sql
-        self.dbcur.execute(execute_sql)
+        self.dbcur.execute(execute_sql.encode('utf-8'))
         self.dbconn.commit()
 
     @methodName
