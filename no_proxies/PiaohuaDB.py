@@ -112,7 +112,7 @@ class PiaohuaDB(object):
         self.dbconn.commit()
 
     def query_tmp_table(self):
-        self.dbcur.execute("SELECT * FROM tmp;")
+        self.dbcur.execute("SELECT id,type,name,url FROM tmp;")
         rows = self.dbcur.fetchall()  # all rows in table
         return rows
     #
