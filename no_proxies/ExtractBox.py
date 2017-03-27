@@ -43,9 +43,12 @@ class ExtractWebFrame:
             div = soup.findAll('div', id='showinfo')[0]
             about = div.text
             href_list = []  # [item.a['href'] for item in div('table')]
+            # for item in div('table'):
+            #     if item.a:
+            #         href_list.append(item.a['href'])
             for item in div('table'):
-                if item.a:
-                    href_list.append(item.a['href'])
+                for href in item('a'):
+                    href_list.append(href.text)
 
             href = '|'.join(href_list)
         except Exception, ex:
