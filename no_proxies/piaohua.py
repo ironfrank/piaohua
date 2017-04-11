@@ -7,19 +7,16 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-def UpdateDB():
-    db = PiaohuaDB('film', '127.0.0.1')
-    exbox = ExtractWebFrame()
-    res = RequestsBox()
+def UpdateDB(db, exbox, res, main_table=False, film_type=None):
     rows = db.query_tmp_table()
-    if not rows:
-        db.piaohua_type2tmp_table('aiqing')
+    if (not rows) and main_table:
+        db.piaohua_type2tmp_table(film_type)
 
     rows = db.query_tmp_table()
     for row in rows:
         lrow = [item for item in row]
         print lrow
-        status_code, html = res.proxy_get_func(lrow)
+        status_code, html = res.proxy_get_func(lrow[3])
 
         if status_code == '200':
             film_dict = exbox.sort_film_links(html)
@@ -47,10 +44,28 @@ def UpdateDB():
     #         db.executeSQL()
     #     #break
 
+def UpdateFilms(db, exbox, res):
+    film_url = 'http://www.piaohua.com'
+    old_date = db.query_update_log()
+    old_date = old_date[0][0]
+    status_code, html = res.proxy_get_func(film_url)
+    if status_code == '200':
+        film_list = exbox.sort_film_new_links(html, old_date, film_url)
+        print film_list
+        if isinstance(film_list, list):
+            for item in film_list:
+                db.single_insert_tmp_table('tmp', item)
+
+
 
 def main():
-    UpdateDB()
+    db = PiaohuaDB('film', '127.0.0.1')
+    exbox = ExtractWebFrame()
+    res = RequestsBox()
 
+    UpdateFilms(db, exbox, res)
+    db.update_log()
+    UpdateDB(db, exbox, res, False, '')
 
 if '__main__' == __name__:
     main()

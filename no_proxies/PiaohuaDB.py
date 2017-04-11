@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 #-*- coding:utf-8 -*-
 import MySQLdb
 import sys
@@ -44,7 +44,7 @@ class PiaohuaDB(object):
 
     @methodName
     def insert_resource_center_table(self, par, param):
-        fields = ['id', 'type', 'name', 'url', 'link', 'about']
+        fields = ['id', 'type', 'name', 'url', 'link', 'about', 'duration', 'country', 'classify', 'imdb']
 
         sqlstr = 'INSERT INTO resource_center('
         sqlstr += ', '.join([item for item in fields])
@@ -52,14 +52,26 @@ class PiaohuaDB(object):
         sqlstr += ', '.join(['"%s"' for i in fields])
         sqlstr += ')'
 
-        par[1] = par[1].replace('"', '&quot;')
-        par[2] = par[2].replace('"', '&quot;')
-        par[3] = par[3].replace('"', '&quot;')
-        param['link'] = param['link'].replace('"', '&quot;')
-        param['about'] = param['about'].replace('"', '&quot;')
+        film_type = par[1].replace('"', '&quot;')
+        film_name = par[2].replace('"', '&quot;')
+        film_url = par[3].replace('"', '&quot;')
+        link = param['link'].replace('"', '&quot;')
+        about = param['about'].replace('"', '&quot;')
+        about = about.replace('&nbsp;', '')
+        about = about.replace('　', '')
+
+        duration = re.findall('◎年代(.*?)◎', about, re.S)
+        country = re.findall('◎国家(.*?)◎', about, re.S)
+        classify = re.findall('◎类别(.*?)◎', about, re.S)
+        imdb = re.findall('◎IMDB评分(.*?)◎', about, re.S)
+
+        duration = duration[0] if duration else ''
+        country = country[0] if country else ''
+        classify = classify[0] if classify else ''
+        imdb = imdb[0] if imdb else ''
 
         execute_sql = sqlstr % (
-            param['id'], par[1], par[2], par[3], param['link'], param['about'])
+            param['id'], film_type, film_name, film_url, link, about, duration, country, classify, imdb)
 
         print execute_sql.encode('utf-8')
         self.dbcur.execute(execute_sql.encode('utf-8'))
@@ -98,18 +110,30 @@ class PiaohuaDB(object):
         sqlstr += ')VALUES('
         sqlstr += ', '.join(['"%s"' for i in fields])
         sqlstr += ')'
-        lparam = list(param)
-        sql_queue = [sqlstr % (item[0], item[1].replace('"', '&quot;'),
-                               item[2].replace('"', '&quot;'), item[3].replace('"', '&quot;')) for item in lparam]
+
+        param[1] = param[1].replace('"', '&quot;')
+        param[2] = param[2].replace('"', '&quot;')
+        param[3] = param[3].replace('"', '&quot;')
+        sql_queue = [sqlstr % (item[0], item[1], item[2], item[3]) for item in param]
         while sql_queue:
             self.dbcur.execute(sql_queue.pop())
-
-        self.dbconn.commit()
+            self.dbconn.commit()
 
     def query_tmp_table(self):
         self.dbcur.execute("SELECT id,type,name,url FROM tmp;")
         rows = self.dbcur.fetchall()  # all rows in table
         return rows
+
+    def query_update_log(self):
+        self.dbcur.execute("SELECT update_date, url FROM update_log;")
+        logs = self.dbcur.fetchall()  # all rows in table
+        return logs
+
+    def update_log(self):
+        date_str = datetime.datetime.now().strftime('%Y-%m-%d')
+        execute_sql = '''UPDATE update_log SET update_date="%s" WHERE film="piaohua";''' % (date_str)
+        self.dbcur.execute(execute_sql.encode('utf-8') )
+        self.dbconn.commit()
     #
 
     def seiriContentsTableSQL(self, sType, name, param):
