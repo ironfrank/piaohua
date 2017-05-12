@@ -50,30 +50,13 @@ class RequestsBox(object):
         'Connection': 'keep-alive'
     }
     response = None
-    browser = None
-    visits_count = 0
-    ip_list = []
-    proxies = {'http': ''}
 
     @methodName
     def __init__(self):
         self.response = requests.session()
-        #self.browser = webdriver.PhantomJS(executable_path='/usr/local/bin/phantomjs')
-        self.changeProxy()
 
     def __del__(self):
         self.response.close()
-        # self.browser.quit()
-
-    # @methodName
-    # def random_character_headers_func(self):
-    #     header_useragent = self.useragent_browser_list[random.randint(0, len(self.useragent_browser_list) - 1)]
-    #     useragent_len = len(header_useragent) - 1
-    #     user_agent = ''
-    #     for item in xrange(random.randint(10, useragent_len)):
-    #         item_n = random.randint(0, useragent_len)
-    #         user_agent += header_useragent[item_n]
-    #     self.headers['User-Agent'] = user_agent
 
     @methodName
     def changeRandomHeaders(self):
@@ -103,73 +86,21 @@ class RequestsBox(object):
         self.changeRandomHeaders()
 
     @methodName
-    def changeProxy(self):
-        self.clearCookies()
-        # 变换Headers中user-agent的标示
-        self.changeHeaders()
-
-        print self.ip_list
-        # 判断协议列表是否为空，如果为空，则获取新的代理
-        if len(self.ip_list) < 2:
-            self.getDaxiangProxiesIP()
-        elif self.proxies['http'] and self.proxies['http'] in self.ip_list:
-            print 'Remove ip:', self.proxies['http']
-            self.ip_list.remove(self.proxies['http'])
-
-        self.proxies['http'] = random.choice(self.ip_list)
-
-    @methodName
     def clearCookies(self):
         self.response.cookies.clear()
-        # self.browser.delete_all_cookies()
-
-    # @methodName
-    # def proxyGet(self, url):
-    #     ncount = 0
-    #     while 1:
-    #         try:
-    #             print '==============================================================================='
-    #             print '********************* Start get url and proxies *******************************'
-    #             print url, self.proxies
-    #             print self.headers
-    #             html = self.response.get(url,
-    #                                      # headers=self.headers,
-    #                                      proxies=self.proxies,
-    #                                      timeout=30,
-    #                                      allow_redirects=False)
-
-    #             print '==============================================================================='
-    #             if html.status_code == 200 and html.content:
-    #                 self.saveHtml(html.content)
-    #                 return html
-    #             else:
-    #                 raise StatusCodeException((html.status_code, html.content))
-
-    #             if ncount >= 100:
-    #                 self.changeProxy()
-    #             if nquest >= 5:
-    #                 pass
-
-    #         except Exception, ex:
-    #             print ex
-    #             self.changeProxy()
-    #         finally:
-    #             ncount += 1
 
     @methodName
-    def proxy_get(self, param):
+    def proxy_get_func(self, film_url):
         nquest = 0
         while 1:
             try:
-                print param
-                print "\033[1;31;40m%s : %s！\033[0m" % (param[3], self.proxies)
-                html = self.response.get(param[3],
-                                         headers=self.headers,
-                                         proxies=self.proxies,
-                                         timeout=30,
+                print "\033[1;31;40m %s \033[0m" % (film_url)
+                html = self.response.get(film_url,
+                                         #headers=self.headers,
+                                         #timeout=30,
                                          allow_redirects=False)
 
-                self.saveHtml(html)
+                self.save_html_func(html)
                 if html.status_code == 200 and html.content:
                     return '200', html
                 elif html.status_code == 404:
@@ -182,79 +113,9 @@ class RequestsBox(object):
 
             except StatusCodeException, ex:
                 print ex
-                self.changeProxy()
-            except requests.exceptions.ReadTimeout, ex:
-                print ex
-                self.changeProxy()
-            except requests.exceptions.ConnectionError, ex:
-                print ex
-                self.changeProxy()
-            except requests.exceptions.ChunkedEncodingError, ex:
-                print ex
-                self.changeProxy()
-            except requests.exceptions.TooManyRedirects, ex:
-                print ex
-                self.changeProxy()
-            finally:
-                self.visits_count += 1
-                if self.visits_count >= 100:
-                    self.changeProxy()
 
     @methodName
-    def getDaxiangProxiesIP(self):
-        time.sleep(1.5)
-        try:
-            ipUrl = ''
-            with open('./proxies.conf', 'r') as f:
-                ipUrl += f.read()
-            if not ipUrl:
-                raise Exception('proxies.conf配置文件有误！')
-            print ipUrl
-            html = requests.get(ipUrl)
-            ips = re.findall(r'(\d+\.\d+\.\d+\.\d+\:\d+)', html.content)
-            print html.content
-            #assert ips
-            if not ips:
-                raise Exception('获取代理IP 失败！')
-            self.ip_list = ips
-        except Exception as ex:
-            print ex
-            self.getDaxiangProxiesIP()
-            time.sleep(10)
-        # finally:
-        #     print ips
-
-    @methodName
-    def getFreeProxiesIP(self):
-        try:
-            """获取代理IP"""
-            headers = {"Accept": "text/html,application/xhtml+xml,application/xml;",
-                       "Accept-Encoding": "gzip, deflate, sdch",
-                       "Accept-Language": "zh-CN,zh;q=0.8,en;q=0.6",
-                       "Referer": "http://www.xicidaili.com",
-                       "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) Chrome/42.0.2311.90 Safari/537.36"
-                       }
-            html = requests.get("http://www.xicidaili.com/nn", headers=headers)
-            print html.status_code
-            time.sleep(5)
-            from BeautifulSoup import BeautifulSoup
-            soup = BeautifulSoup(html.content)
-            with open('html.html', 'w') as f:
-                f.write(html.content)
-            data = soup.table.findAll("td")
-            ip_compile = re.compile(r'<td>(\d+\.\d+\.\d+\.\d+)</td>')  # 匹配IP
-            port_compile = re.compile(r'<td>(\d+)</td>')  # 匹配端口
-            ip = re.findall(ip_compile, str(data))  # 获取所有IP
-            port = re.findall(port_compile, str(data))  # 获取所有端口
-            # 组合IP+端口，如：115.112.88.23:8080
-            self.ip_list = [":".join(i) for i in zip(ip, port)]
-        except Exception as ex:
-            print ex
-            time.sleep(5)
-            self.getProxiesIP()
-
-    @methodName
-    def saveHtml(self, html):
+    def save_html_func(self, html):
         print '\033[1;31;40m状态码：%s\033[0m' % (html.status_code)
-        with open('temp.html', 'w') as f:
+        with open('html/temp.html', 'w') as f:
             f.write(html.content)

@@ -2,48 +2,33 @@
 from ExtractBox import *
 from PiaohuaDB import *
 import collections
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
-def UpdateDB():
-    db = PiaohuaDB()
-    exbox = ExtractWebFrame()
-    res = RequestsBox()
-    #file_dict = collections.defaultdict(str)
-    # film_dict = dict()
-    # as_dict = dict()
-    # #去除重复
-    # rows = db.QueryPiaohuaTable()
-    # n = 0
-    # for item in rows:
-    #     tmpurl = item[3].split('/')
-    #     for i in xrange(3):
-    #         del tmpurl[5]
+def UpdateDB(db, exbox, res, main_table=False, film_type=None):
+    rows = db.query_tmp_table()
+    if (not rows) and main_table:
+        db.piaohua_type2tmp_table(film_type)
 
-    #     print tmpurl
-    #     print '/'.join(tmpurl)
-    #     db.UpdatePiaohuaTable(item[0],'/'.join(tmpurl))
-    # print n
-
-    #rows = db.query_type_table('dongzuo')
-    #db.seiri_tmp_table_sql('tmp', rows)
-    # db.execute_sql()
     rows = db.query_tmp_table()
     for row in rows:
-        print row[0], row[1], row[2], row[3]
-        status_code, html = res.proxy_get(row)
+        lrow = [item for item in row]
+        print lrow
+        status_code, html = res.proxy_get_func(lrow[3])
 
         if status_code == '200':
             film_dict = exbox.sort_film_links(html)
             if isinstance(film_dict, dict):
-                db.insert_resource_center_table(row, film_dict)
+                db.insert_resource_center_table(lrow, film_dict)
             else:
-                db.seiri_tmp_table_sql('unresolved_issues', [row])
-                db.execute_sql()
-            db.del_tmp_table(row[0])
+                db.single_insert_tmp_table('tmp_unresolved_issues', lrow)
+                
+            db.del_row_from_id_table('tmp', lrow[0])
         elif status_code == '404':
-            db.seiri_tmp_table_sql('piaohua_404', [row])
-            db.execute_sql()
-            db.del_tmp_table(row[0])
+            db.single_insert_tmp_table('tmp_404', lrow)
+            db.del_row_from_id_table('tmp', lrow[0])
 
     # type_list = ['kehuan','juqing','xuannian','wenyi','zhanzheng','kongbu','zainan','lianxuju','dongman','zongyijiemu']
     # for stype in type_list:
@@ -59,10 +44,28 @@ def UpdateDB():
     #         db.executeSQL()
     #     #break
 
+def UpdateFilms(db, exbox, res):
+    film_url = 'http://www.piaohua.com'
+    old_date = db.query_update_log()
+    old_date = old_date[0][0]
+    status_code, html = res.proxy_get_func(film_url)
+    if status_code == '200':
+        film_list = exbox.sort_film_new_links(html, old_date, film_url)
+        print film_list
+        if isinstance(film_list, list):
+            for item in film_list:
+                db.single_insert_tmp_table('tmp', item)
+
+
 
 def main():
-    UpdateDB()
+    db = PiaohuaDB('film', '127.0.0.1')
+    exbox = ExtractWebFrame()
+    res = RequestsBox()
 
+    UpdateFilms(db, exbox, res)
+    db.update_log()
+    UpdateDB(db, exbox, res, False, '')
 
 if '__main__' == __name__:
     main()
