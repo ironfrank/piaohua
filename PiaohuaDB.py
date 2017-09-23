@@ -72,7 +72,7 @@ class PiaohuaDB(object):
 
         execute_sql = sqlstr % (
             param['id'], film_type, film_name, film_url, link, about, duration, country, classify, imdb)
-
+        print "\033[1;32;40m %s \033[0m" % (film_name)
         print execute_sql.encode('utf-8')
         self.dbcur.execute(execute_sql.encode('utf-8'))
         self.dbconn.commit()

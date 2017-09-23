@@ -59,7 +59,7 @@ def UpdateFilms(db, exbox, res):
 
 
 def main():
-    db = PiaohuaDB('film', '127.0.0.1')
+    db = PiaohuaDB('film', '47.92.70.101')
     exbox = ExtractWebFrame()
     res = RequestsBox()
 

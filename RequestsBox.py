@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from FuncBox import *
+import time
 
 
 class RequestsBox(object):
@@ -97,7 +98,7 @@ class RequestsBox(object):
                 print "\033[1;31;40m %s \033[0m" % (film_url)
                 html = self.response.get(film_url,
                                          #headers=self.headers,
-                                         #timeout=30,
+                                         timeout=30,
                                          allow_redirects=False)
 
                 self.save_html_func(html)
@@ -108,11 +109,17 @@ class RequestsBox(object):
                 else:
                     raise StatusCodeException((html.status_code, html.content))
 
-                if nquest > 5:
-                    return '404', ''
+                
 
             except StatusCodeException, ex:
                 print ex
+            except Exception as ex:
+                nquest += 1
+                time.sleep(1)
+                print ex
+            finally:
+                if nquest > 5:
+                    return '404', ''
 
     @methodName
     def save_html_func(self, html):
